@@ -44,28 +44,28 @@ Passing Mark - 725/1000
     - Sustainability
 
 ## Identity Access & Management
-    - AWS Root account must be secured with 2-factor authentication
-    - Should create admin group with appropriate permissions and add user to it for Admin access
-    - IAM is a global service, its not specific to any region
-    - User, roles & groups are created at global level & available in all the regions
-    - User is created for each physical person (One user for one person)
-    - When user is created it provides Access key and scecet key for programmatic access
-    - Role is internal for AWS services (non-person entity)
-    - Permission is set of rules defined using IAM Policy Document that can be assinged to either user, role or group to define level of access.
-    - Example IAM Policy Document
-    ```
-    {
-        "version":"",
-        "Statement":[
-            {
-                "Effect":"Allow",
-                "Action":"*",
-                "Resource":"*"
-            }
-        ]
-    }
-    ```
-    - Ability for IAM Federation & Identity Federation
+- AWS Root account must be secured with 2-factor authentication
+- Should create admin group with appropriate permissions and add user to it for Admin access
+- IAM is a global service, its not specific to any region
+- User, roles & groups are created at global level & available in all the regions
+- User is created for each physical person (One user for one person)
+- When user is created it provides Access key and scecet key for programmatic access
+- Role is internal for AWS services (non-person entity)
+- Permission is set of rules defined using IAM Policy Document that can be assinged to either user, role or group to define level of access.
+- Example IAM Policy Document
+```
+{
+    "version":"",
+    "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":"*",
+            "Resource":"*"
+        }
+    ]
+}
+```
+- Ability for IAM Federation & Identity Federation
     
 
 
