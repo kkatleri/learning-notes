@@ -3,6 +3,7 @@
 - [Introduction](#Introduction)
 - [AWS Fundamentals](#aws-fundamentals)
 - [Identity Access & Management (IAM)](#identity-access--management)
+- [Simple Storage Service (S3)](#simple-storage-service-s3)
 
 
 ## Introduction
@@ -55,7 +56,7 @@ Passing Mark - 725/1000
 - Example IAM Policy Document
 ```
 {
-    "version":"",
+    "version":"2012-10-17",
     "Statement":[
         {
             "Effect":"Allow",
@@ -66,6 +67,38 @@ Passing Mark - 725/1000
 }
 ```
 - Ability for IAM Federation & Identity Federation
+
+## Simple Storage Service (S3)
+
+- S3 Overview
+    - Its an object based storage, suited for flat files.
+    - Its a key-value based storage, where key is file/object name and value is actual file/object
+    - Its an universal service, bucket name needs to be unique across all the regions
+    - Object upto 5TB in size can be stored
+    - S3 provides convenient Web APIs to access files 
+        - S3 URL Format: http://<<bucketName>>.s3.<<regionName>>.aws.amazon.com/<<objectKey>>
+    - S3 is Great option for hosting static websites
+
+- Securing S3 Bucket
+    - Provides "Block public access" option to secure bucket 
+    - By default, S3 bucket is created with no public access
+    - Make S3 objects publicly available is 2 step process
+        - Remove "Block public access" settings at bucket level
+        - Enable public access on indvidual object OR apply IAM policy to all the objects in the given bucket 
     
+ - Hosting static websites using S3
+    - Enable public access
+    - Enable "Static Website" option in S3 bucket
+    - Configure index.html & error.html
+    - Provides auto-scaling
+    - e.g - Publish movie trailers, host media contents
 
+- Versioning in S3
+    - Enable version option in S3 bucket
+    - Once enabled, can not be disabled again. It can only be suspended.
+    - Old/ deleted versions of the files are stored
+    - When deleted, delete marker is applied on the object and can only be visible with "List Version" option
+    - By removing delete marker object version, object can be restored
+    - The initial version of the object has "null" version
 
+  
