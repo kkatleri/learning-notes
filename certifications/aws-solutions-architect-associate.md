@@ -101,4 +101,9 @@ Passing Mark - 725/1000
     - By removing delete marker object version, object can be restored
     - The initial version of the object has "null" version
 
-  
+- S3 Stroage classes
+    - Below chart summarizes differnt S3 storage classes & their Availability, Durability & Usage.
+    ![Alt text](images/S3-Storage-Classes-Summary.png)
+    - Below charts summarizes cost structure
+    ![Alt text](images/S3-Storage-Classes-Cost-Structure-Part1.png)
+    ![Alt text](images/S3-Storage-Classes-Cost-Structure-Part2.png)
