@@ -76,7 +76,7 @@ Passing Mark - 725/1000
     - Its an universal service, bucket name needs to be unique across all the regions
     - Object upto 5TB in size can be stored
     - S3 provides convenient Web APIs to access files 
-        - S3 URL Format: http://<<bucketName>>.s3.<<regionName>>.aws.amazon.com/<<objectKey>>
+        - S3 URL Format: http://<<bucketName>>.s3.<<regionName>>.awsamazon.com/<<objectKey>>
     - S3 is Great option for hosting static websites
 
 - Securing S3 Bucket
@@ -84,7 +84,7 @@ Passing Mark - 725/1000
     - By default, S3 bucket is created with no public access
     - Make S3 objects publicly available is 2 step process
         - Remove "Block public access" settings at bucket level
-        - Enable public access on indvidual object OR apply IAM policy to all the objects in the given bucket 
+        - Enable public access on indvidual object OR apply policy to all the objects in the given bucket 
     
  - Hosting static websites using S3
     - Enable public access
@@ -107,3 +107,49 @@ Passing Mark - 725/1000
     - Below charts summarizes cost structure
     ![Alt text](images/S3-Storage-Classes-Cost-Structure-Part1.png)
     ![Alt text](images/S3-Storage-Classes-Cost-Structure-Part2.png)
+
+- Lifecycle management with S3
+    - Helps automate moving objects to different storage tiers
+    - Can be used in conjunction with Versioning
+    - Can be applied to current version as well as previous version
+    - You can configure rules such as when and which tier objects to move to
+
+- S3 Object lock & Glacior voult lock
+    - S3 Object lock allows you to apply WORM(Write Once Read Many) model on objects
+    - Objects lock can be applied at bucket level or individual object level
+    - 2 modes of object lock
+        - Compliance - No one allowed to overwrite or delete an object once written
+        - Governance - Exceptional users like root users are allowed to overwrite or delete an object
+    - Legal hold
+    - S3 Glacior lock
+        - Glaciar storage with S3 object lock on it i.e. objects in Glaciar vault can not overwritten or deleted.
+
+- Encrypting S3 objects
+    - Encryption in transit
+        - SSL
+        - HTTPS
+    - Encryption at rest
+        - Server Side Encryption - This applied just before uploading object into S3 
+            - SSE S3 Using(AES 256) - AWS Managed Keys
+            - SSE KMS - Encryption key is stored in KMS
+            - SSE C (Customer Managed Key)- Encryption key is managed by the customer
+        - Client Side Encryption - Object is encypted at clientside itself & then uploaded into S3
+    - Encryption can be enforced using Bucket policy
+        - PUT requests are denied if x-amz-server-side-encryption header is not present in the request
+            
+- Optimizing S3 Performance
+    - Apply prefixes by creating appropriate bucket structure (Sub-folders)
+    - Achieve high number of requests 
+        - 3500 PUT/POST/DELETE requests per second
+        - 11000 GET requests per second
+    - Spread your reads accross multiple prefixes to get betters results
+        - if we are using 2 prefixes then 7000 PUT/POST & 22000 GET per second
+    - S3 Multipart upload
+        - recommended to use multipart upload for files more than 100MB. Must be used for 5GB & above
+    - S3 Byte-range fetches
+
+- Backing up data with S3 Bucket Replication
+    - Allows you replicate your objects from one bucket into another in the same or different regions
+    - Versioning must be enabled for Replication to work
+    - Existing objects are not replicated automatically after turning on Replication
+    - Delete markers are not replicated by default, need to turn on seperately
