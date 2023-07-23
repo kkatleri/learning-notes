@@ -4,6 +4,7 @@
 - [AWS Fundamentals](#aws-fundamentals)
 - [Identity Access & Management (IAM)](#identity-access--management)
 - [Simple Storage Service (S3)](#simple-storage-service-s3)
+- [Elastic Compute Cloud(EC2)](#elastic-compute-cloud-ec2)
 
 
 ## Introduction
@@ -153,3 +154,42 @@ Passing Mark - 725/1000
     - Versioning must be enabled for Replication to work
     - Existing objects are not replicated automatically after turning on Replication
     - Delete markers are not replicated by default, need to turn on seperately
+
+## Elastic Compute Cloud (EC2)
+
+- EC2 Overview
+    - Amazon compute service with pay as you go model
+    - Its a virtual machine running on Physical server in the cloud
+    - Uses hpervisor technology
+    - Provides compute on demand, grow and shrink as needed
+    - Machine can be provisioned and managed with few clicks and Web API calls
+    - Types of EC2
+        - On demand instances
+            - Great flexibility, no committments, instances can be released anytime 
+        - Reserved instances
+            - Reserved for 1-3 years, Longer the committment lesser the prices, 
+            - cost effective, cost savings upto 72%
+        - Spot instances
+            - Unused compute capacities are put for auction for certain time period use
+            - Prices fluctuate with supply and demand, stock prices analogy
+            - cost savings upto 90%
+            - suitable for non-critical job like sunday night job having flexible start and end time
+        - Dedicate hosts
+            - Compliance and licensing requirement
+            - Not allowed to share physical servers with any other hosts
+            - e.g Banking softwares
+            - Most expensive option
+
+- EC2 creation major steps
+    - Select Operating System / AMI (Amazon Machine Image)
+    - Select CPU / Instance type
+    - Provide instance details
+        - no of Instances
+        - VPC
+        - Subnet / Availaibility zone
+    - Add storage
+    - Add tags
+    - Configure security group
+        - configure ports 
+    - Congifure secret key pair for SSH
+        - Use existing or create new one
