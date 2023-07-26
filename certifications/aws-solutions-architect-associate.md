@@ -193,3 +193,11 @@ Passing Mark - 725/1000
         - configure ports 
     - Congifure secret key pair for SSH
         - Use existing or create new one
+
+- AWS Command Line Access
+    - Install AWS CLI
+    -  Get the programmatice access keys from AWS console for the user
+    - Configure access keys to connect through CLI
+        > aws configure
+
+
