@@ -234,4 +234,29 @@ Passing Mark - 725/1000
         - e.g - https://169.254.169.254/latest/meta-data/public-ipv4
     - You can access meta-data from user-data(Bootstrap script)
 
--
+- Networking with EC2
+    - ENI (Elastic Network Interface)
+        - Comes as default with EC2
+        - Used for basic networking
+    - Enhanced Networking
+        - Provides higher bandwidth and low inter-instance latencies
+        - Can be attached to EC2 in 2 ways
+            - ENA (Enhanced Network Adapter) - Speed upto 100 GBPS
+            - VF (Intel 82599 Virtual Function Interface) - Speed up to 10 GBPS
+    - EFA (Elastic Fabric Adapter)
+        - Used for High Performance Computing(HPC) and Machine Learning workload
+        - A lot faster with much lower latency
+        - Supports OS-bypass to enable faster speed and lower latency - only supported by Linux
+
+- Optimizing with EC2 Placement Groups
+    - Cluster Placement Group
+        - Grouping of instances within same Availability Zone.
+        - Used when instances need high network throughput and low latency
+    - Spread Placement Group
+        - Grouping of instances of seperate hardware to isolate impact of failure
+        - Used for applications with small number of critical instances
+        - e.g Database's primary and secondary instances
+    - Partition Placement Group
+        - Grouping of EC2 instances using seperate racks again to isolate imapact of failure 
+        - Each rack will have its own network and power sources
+        - Used for multiple instances grouped together on a single Rack
