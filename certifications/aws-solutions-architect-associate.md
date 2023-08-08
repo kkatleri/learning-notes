@@ -160,8 +160,8 @@ Passing Mark - 725/1000
 - EC2 Overview
     - Amazon compute service with pay as you go model
     - Its a virtual machine running on Physical server in the cloud
-    - Uses hpervisor technology
-    - Provides compute on demand, grow and shrink as needed
+    - Uses hypervisor technology
+    - Provides compute on demand, grows and shrinks as needed
     - Machine can be provisioned and managed with few clicks and Web API calls
     - Types of EC2
         - On demand instances
@@ -174,7 +174,7 @@ Passing Mark - 725/1000
             - Prices fluctuate with supply and demand, stock prices analogy
             - cost savings upto 90%
             - suitable for non-critical job like sunday night job having flexible start and end time
-        - Dedicate hosts
+        - Dedicated hosts
             - Compliance and licensing requirement
             - Not allowed to share physical servers with any other hosts
             - e.g Banking softwares
@@ -200,4 +200,38 @@ Passing Mark - 725/1000
     - Configure access keys to connect through CLI
         > aws configure
 
+- Using Roles
+    - Roles allow one AWS servce to access another service in the same or different account.
+    - Eliminates need of programmatic access keys
+    - Great option to provide temporary access
 
+- Security Groups
+    - virtual firewalls for EC2 instance
+    - By default all the accesses to EC2 are blocked
+    - need to open up ports to all/ some IPs 
+    - 0.0.0.0/0 - To let everyone in
+    - Common ports
+        - HTTP : 80
+        - HTTPS : 443
+        - SSH : 22
+        - RDP : 3389
+
+- Bootstrap script
+    - Script that runs when EC2 instance first runs.
+    - You can provide this script as part of User Data which setting up EC2 instance.
+    - Adds an extra time to instance startup
+    - Usage
+        - Automates installation of applications
+
+- User Data & Meta Data
+    - User data is simply Bootstrap script
+    - Meta Data is data about data i.e data about the EC2 instance
+    - How to access User data
+        - https://169.254.169.254/latest/user-data
+    - How to access EC2 meta data 
+        - https://169.254.169.254/latest/meta-data
+        - provides bunch of meta-data options
+        - e.g - https://169.254.169.254/latest/meta-data/public-ipv4
+    - You can access meta-data from user-data(Bootstrap script)
+
+-
