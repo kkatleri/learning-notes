@@ -218,7 +218,7 @@ Passing Mark - 725/1000
 
 - Bootstrap script
     - Script that runs when EC2 instance first runs.
-    - You can provide this script as part of User Data which setting up EC2 instance.
+    - You can provide this script as part of User Data while setting up EC2 instance.
     - Adds an extra time to instance startup
     - Usage
         - Automates installation of applications
@@ -253,7 +253,7 @@ Passing Mark - 725/1000
         - Grouping of instances within same Availability Zone.
         - Used when instances need high network throughput and low latency
     - Spread Placement Group
-        - Grouping of instances of seperate hardware to isolate impact of failure
+        - Grouping of instances on seperate hardware to isolate impact of failure
         - Used for applications with small number of critical instances
         - e.g Database's primary and secondary instances
     - Partition Placement Group
