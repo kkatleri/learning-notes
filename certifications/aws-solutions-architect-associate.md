@@ -260,3 +260,41 @@ Passing Mark - 725/1000
         - Grouping of EC2 instances using seperate racks again to isolate imapact of failure 
         - Each rack will have its own network and power sources
         - Used for multiple instances grouped together on a single Rack
+
+- Timing workloads with Spot instances
+    - Spot instances allows to you to provision unused compute capacity for cheaper prices
+    - Could be terminated at any time
+    - Good for non-critical, fault-tolerant, repeatable workload
+    - Provides upto 90% of cost savings
+    - Spot Fleet
+        - Enables to you to provision given compute capcity using spot instances and optionally on-demand instances
+        - Different strategies can specified for provisioning
+            - capacityOptimized
+            - diversified
+            - costOptimized(Default)
+            - instancePoolsToUseCount
+
+- VMWare Cloud in AWS
+    - VMWare has existed before AWS
+    - VMWare is used by Organizations for private cloud deployments. 
+    - Good for lift & shift migration, hybrid cloud strategy, disaster recovery(VMWware famous for) and leverage AWS Services
+    - Perfect option for extending private VMware cloud to AWS public cloud.
+
+- AWS Outposts
+    - Helps extend AWS services beyond public cloud
+    - Brings AWS Data center directly to you, on-premises.
+    - Outposts comes in sizes such 1U, 2U servers upto 42U Racks and multi-Racks deployment
+    - Benefits
+        - Hybrid cloud
+        - Fully managed infrastructure by AWS
+        - Consisteny with your environment
+    - Outpost family members
+        - Outpost Rack
+            - Comes in capcity of 42U upto 96U Racks
+            - Good for orgs data centers
+            - Leverage AWS services with on-premise DC
+        - Output Servers
+            - Comes in 1U, 2U form factor
+            - Good for small spaces like retail store, health care facility
+            - Fully managed by AWS
+    
