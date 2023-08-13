@@ -3,7 +3,7 @@
     Date - 08/10/2023
     Organizer - Bill Kornado
     Speakers
-        - Praik Patel (Azul Systems) - Java for Serverless cloud functions
+        - Pratik Patel (Azul Systems) - Java for Serverless cloud functions
 
 # Updates
 - Java 21 release coming up with LTS (Long term support)
@@ -41,7 +41,7 @@
         - Reflection does not work at runtime
         - Peformance degrades in the long run
     - Generally not recommended to use for Serverless cloud functions
-    
+
 - CRaC (Coordinated Restore at Checkpoint)
     - Helps take the snapshot/image of the java instance
     - Generally good to take this snapshot immdiatedly after app startup and ready to serve the request
