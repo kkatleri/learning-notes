@@ -5,6 +5,7 @@
 - [Identity Access & Management (IAM)](#identity-access--management)
 - [Simple Storage Service (S3)](#simple-storage-service-s3)
 - [Elastic Compute Cloud(EC2)](#elastic-compute-cloud-ec2)
+- [Elastic Block Store(EBS) & Elastic File System(EFS))](#elastic-block-storeebs--elastic-file-systemefs)
 
 
 ## Introduction
@@ -298,3 +299,34 @@ Passing Mark - 725/1000
             - Good for small spaces like retail store, health care facility
             - Fully managed by AWS
     
+## Elastic Block Store(EBS) & Elastic File System(EFS)
+- EBS Overview
+    - EBS is a virtual hard disk in the cloud that can be attached to EC2 instance 
+    - Allows you to install Operating system, database systems and web servers etc.
+    - Size of the EBS can be resized on the fly without needing server restart
+    - EBS volume types
+        - General purpose SSD (gp1)
+        - General purpose SSD (gp2)
+        - Provisioned IOPS SSD (io1)
+        - Provisioned IOPS SSD (io2)
+        - ![Alt text](images/ebs-ssd-types-details.png)
+        - Throughput Optimized HDD 
+        - Cold storage HDD
+        - ![Alt text](images/ebs-hdd-types-details.png)
+
+- Volumes and Snapshots
+    - EBS Volume
+        - You need minimum one EBS volume per EC2 instance called Root volume
+        - EBS volumes will always be in the same AZ as EC2 to avoid latenycy
+        - EBS can be resized on the fly, no restart needed.
+        - EBS volume type can be switch on the fly, no restart needed.
+    - EBS Snapshot - 
+        - Its a point in time image of EBS volume
+        - Snapshot exists on S3
+        - It can be encrypted
+        - Following needs to be done if you need to spin up new ec2 instance using snapshot -
+            1. Create AMI(Amazon Machine Image) using snapshot
+            2. Spin up new instance using AMI in the same or differnt region
+        - EC2 instance can be migrated to another region by creating EBS snapshot and then copying snapshot to another region. Then, follow above steps to spin up new ec2 instance. 
+            
+
