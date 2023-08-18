@@ -328,5 +328,30 @@ Passing Mark - 725/1000
             1. Create AMI(Amazon Machine Image) using snapshot
             2. Spin up new instance using AMI in the same or differnt region
         - EC2 instance can be migrated to another region by creating EBS snapshot and then copying snapshot to another region. Then, follow above steps to spin up new ec2 instance. 
-            
+
+    - Encrypting existing EBS volumes
+        - Create EBS Snapshot from the unencrypted EBS volume. 
+        - Create a copy of this snapshot with encrypted option checked
+        - Create AMI from encrpted snapshot
+        - Spin up a new ec2 instance using this AMI. This instance will have protected/encrypted EBS volume.
+        - When EBS volume is encrypted
+            - Data is encrypted at rest.
+            - Data is encrypted in flight with all communication encrypted between ec2 and EBS volume.
+        - No impact on the performance due to encryption
+        - Amazon provides below encryption techniques - 
+            - Amazon EBS default encryption
+            - KMS Key
+            - Customer managed key
+
+    - EC2 Hibernation
+        - When EC2 instance is stopped, data is kept on the disk until its restarted.
+        - When EC2 is termintated, root EBS volume is also terminated.
+        - Hibenation option helps EC2 to boot up faster and come back to state right before shutdown
+        - When you hibernate the ec2 instance, it saves contents from instance store (RAM) along with active processes onto root BS volume.
+        - When EC2 instance is started again, it won't go thorugh entire bootup process. Instead it will load its state from the EBS volume. Instance retains in instanceId.
+        - This is helpful when you need EC2 instances to come up faster
+        - Hibernation allows to save instance state for upto 60 days and upto 150Gb. 
+        - Available for C and above grade instance family
+        - Available for on-demand and reserved instances.
+               
 
