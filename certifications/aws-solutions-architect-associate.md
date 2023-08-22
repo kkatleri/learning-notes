@@ -329,29 +329,69 @@ Passing Mark - 725/1000
             2. Spin up new instance using AMI in the same or differnt region
         - EC2 instance can be migrated to another region by creating EBS snapshot and then copying snapshot to another region. Then, follow above steps to spin up new ec2 instance. 
 
-    - Encrypting existing EBS volumes
-        - Create EBS Snapshot from the unencrypted EBS volume. 
-        - Create a copy of this snapshot with encrypted option checked
-        - Create AMI from encrpted snapshot
-        - Spin up a new ec2 instance using this AMI. This instance will have protected/encrypted EBS volume.
-        - When EBS volume is encrypted
-            - Data is encrypted at rest.
-            - Data is encrypted in flight with all communication encrypted between ec2 and EBS volume.
-        - No impact on the performance due to encryption
-        - Amazon provides below encryption techniques - 
-            - Amazon EBS default encryption
-            - KMS Key
-            - Customer managed key
+- Encrypting existing EBS volumes
+    - Create EBS Snapshot from the unencrypted EBS volume. 
+    - Create a copy of this snapshot with encrypted option checked
+    - Create AMI from encrpted snapshot
+    - Spin up a new ec2 instance using this AMI. This instance will have protected/encrypted EBS volume.
+    - When EBS volume is encrypted
+    - Data is encrypted at rest.
+    - Data is encrypted in flight with all communication encrypted between ec2 and EBS volume.
+    - No impact on the performance due to encryption
+    - Amazon provides below encryption techniques - 
+        - Amazon EBS default encryption
+        - KMS Key
+        - Customer managed key
 
-    - EC2 Hibernation
-        - When EC2 instance is stopped, data is kept on the disk until its restarted.
-        - When EC2 is termintated, root EBS volume is also terminated.
-        - Hibenation option helps EC2 to boot up faster and come back to state right before shutdown
-        - When you hibernate the ec2 instance, it saves contents from instance store (RAM) along with active processes onto root BS volume.
-        - When EC2 instance is started again, it won't go thorugh entire bootup process. Instead it will load its state from the EBS volume. Instance retains in instanceId.
-        - This is helpful when you need EC2 instances to come up faster
-        - Hibernation allows to save instance state for upto 60 days and upto 150Gb. 
-        - Available for C and above grade instance family
-        - Available for on-demand and reserved instances.
+- EC2 Hibernation
+    - When EC2 instance is stopped, data is kept on the disk until its restarted.
+    - When EC2 is termintated, root EBS volume is also terminated.
+    - Hibenation option helps EC2 to boot up faster and come back to state right before shutdown
+    - When you hibernate the ec2 instance, it saves contents from instance store (RAM) along with active processes onto root BS volume.
+    - When EC2 instance is started again, it won't go thorugh entire bootup process. Instead it will load its state from the EBS volume. Instance retains in instanceId.
+    - This is helpful when you need EC2 instances to come up faster
+    - Hibernation allows to save instance state for upto 60 days and upto 150Gb. 
+    - Available for C and above grade instance family
+    - Available for on-demand and reserved instances.
                
+- EFS (Elastic File System)
+    - Ita a Network File System based on NFSv4 protocol with pay what use model. It can scale upto petabytes.
+    - Data is stored across multiple AZ.
+    - Allows regional data sharing, amongst different AZs.
+    - Highly available and scalable, expensive
+    - Compatible with Linux AMIs (Not supported Windows yet).
+    - Supports Encryption at rest.
+    - Supports thousands of concurrent connnections, 10 GBPS throughput and Petabytes scaling.
+    - It also supports Lifecycle management i.e moving the data across different storage based on its usage.
+
+- FSx Overview
+    - FSx for Windows - Allows to provision fully managed Windows file storage system format in the cloud
+    - Used for Microsoft SQL server, Sharepoint or other windows based applications to cloud.
+    - FSx for Windows Vs EFS
+        - FSx - Windows | EFS - Unix/Linux
+        - FSx supports AD Users & Groups, User access controls along with distributed file system namespaces and replication.
+    - FSx for Lustre
+        - Provides fully managed Windows file system for High performance and Comput-intensive applications.
+    
+- Amazon Machine Image: EBS Vs Instance store
+    - AMI is a blueprint which has the info required to launch the instance.
+    - AMI is based on 5 things
+        - Region
+        - Operating system
+        - CPU Architecture 32/64 bit
+        - Memory
+        - Root storage volume (EBS vs Instance store)
+    - AMI backed by EBS
+        - Most commonly used
+        - EC2 will have root volume on EBS
+        - Provides consistent storage.
+        - Root volume Data can be retained even after instance is terminated.
+    - AMI backed by Instance store
+        - EC2 will have root volume on Instance store (RAM)
+        - Ephemeral in nature
+        - If the underlying hardware fails or instance terminated, data is lost. Data is not lost during instance reboot.
+
+- AWS Backup
+    - Helps to manage backup of multiple AWS Services in an account
+    - When combined with AWS Organizations, it helps to consolidate and centralize backup management of mutiple AWS accounts.
 
