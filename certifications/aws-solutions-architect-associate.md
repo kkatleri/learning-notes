@@ -6,6 +6,7 @@
 - [Simple Storage Service (S3)](#simple-storage-service-s3)
 - [Elastic Compute Cloud(EC2)](#elastic-compute-cloud-ec2)
 - [Elastic Block Store(EBS) & Elastic File System(EFS))](#elastic-block-storeebs--elastic-file-systemefs)
+- [Databases](#databases)
 
 
 ## Introduction
@@ -394,4 +395,39 @@ Passing Mark - 725/1000
 - AWS Backup
     - Helps to manage backup of multiple AWS Services in an account
     - When combined with AWS Organizations, it helps to consolidate and centralize backup management of mutiple AWS accounts.
+
+## Databases
+- Relation Database Systems (RDS)
+    - Relational database is collection of tables
+        - Rows
+        - Columns
+    - Amazon RDS Supports following relational databases
+        - Microsoft SQL Server
+        - Oracle
+        - MySQL
+        - Postgresql
+        - Mariadb
+        - Amazon Aurora
+    - OLTP vs OLAP
+        - OLTP - Online Transaction Processing
+        - OLAP - Online Analytics Processing
+        - RDS is fit for Online Transaction Processing 
+        - Redshit (Another flavor of database) is fit for data analytics and data warehousing.
+    - Multi AZ
+        - RDS supports multi AZ which means there are multiple instances of the database, one being primary and others standby in multiple availability zones.
+        - Automatic failover to Standby DB instance in case of primary instance failure
+        - MultiAZ is only useful for disaster recovery, NOT for boosting performance.
+
+- Increase Read Performance using Read Replicas
+    - Read eplicas are read-only databases 
+    - Unlike multiAZ, Read replicas can be in cross-region
+    - Used for boosting performance by minimizing read load on Primary database.
+    - Read replicas can be promoted to primary DB, it would break replication
+    - multiAZ vs Read Replica
+        - Multi AZ helps with Disaster recovery.
+        - Read Replica helps with boosting performance
+        - Multi AZ is cross-AZ only
+        - Read Replica can be corss-region.
+        - Multi AZ has same url for primary and standby instances enabling automatic failover.
+        - Read replicas has different urls than primary instance.
 
