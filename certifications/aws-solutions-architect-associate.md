@@ -431,3 +431,56 @@ Passing Mark - 725/1000
         - Multi AZ has same url for primary and standby instances enabling automatic failover.
         - Read replicas has different urls than primary instance.
 
+- Amazon Aurora
+    - It is Amazon's properiety database compatible with MySQL and Posgresql
+    - Provides 5x performance than MySQL & 3x than Postgresql
+    - High Availablity - 2 copies are maintained in each of the 3 AZs, total 6 copies
+    - Highly Scalable, starts with 10GiB, increments in factor of 10GiB upto 128TB
+    - High compute scalablity, upto 96vCPU & 748GiB Memory
+    - Replicas are maintained without any perfromance impact
+    - Provides automated backups
+    - Database snapshots can shared cross regions
+    - Amazon Aurora Serverless
+        - On demand provision of the database with auto start & stop feature 
+        - Good for spike usage 
+
+- DynamoDB
+    - This is also Amazon's properiety NoSQL database
+    - Managed service
+    - supports both key-value and documents format
+    - You pay per request, not charged for storage
+    - Provides with eventual consistency, can get strong consistency
+    - Copies stored in 3 geographically distint data centers.
+
+- DynamoDB Transactions
+    - What is ACID
+        - Atomicity, Consistency, Isolation and Durable
+    - ACID with DynamoDB
+        - Enable DynamoDB Transations option to use ACID properties
+        - Supports ACID on a transaction per region and per AWS account.
+    - Supports All or Nothing transactions
+        - meaning either everything is committed
+        - Or everything is rolled back in case of any failure in intermediate transaction
+
+- DynamoDB Backup and Recovery
+    - On Demand Backup and Restore
+        - Full backups at any time
+        - backup is taken in an incremental fashion
+        - Zero impact on table performance
+        - Consistent within seconds
+        - Backup table within the same region as source table
+    - Point In Time Recovery(PITR)
+        - Restore to anypoint within last 35 days
+        - Latest PITR - 5 mins in the past
+
+- Taking you data global with DynamoDB Streams and Global Tables
+    - What are streams
+        - Series of events related to data update to the table, divided in the shards 
+        - Can be subscribed to
+        - Available upto 24hrs
+    - What are global tables
+        - multi-master & mutli-region replication
+        - Good for globally distributed apps 
+        - Built in - no application rewrites
+        - replication within a second
+    - Delete replicas first then the primary table
