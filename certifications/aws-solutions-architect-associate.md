@@ -484,3 +484,25 @@ Passing Mark - 725/1000
         - Built in - no application rewrites
         - replication within a second
     - Delete replicas first then the primary table
+
+- DocumentDB
+    - What is MongoDB
+    - What is DocuementDB
+    - Usa cases
+
+- Amazon Keyspaces
+    - What is Apache Casandra
+    - What is Amazon Keyspaces
+    - Use cases
+
+- Implementing Graph databases using Amazon Neptune
+    - What is Graph database
+    - What is Amazon Neptune
+    - Use cases
+
+- Analysing Time-Series data with Amazon Timestream
+    - What is Time-Series Data
+    - What is Amazon Timestream
+    - Use cases 
+
+- 
