@@ -487,22 +487,38 @@ Passing Mark - 725/1000
 
 - DocumentDB
     - What is MongoDB
-    - What is DocuementDB
+        - Document-based nosql database
+        - Provides scalability and flexibility to your data
+        - stores json documents
+    - What is DocumentDB
+        - Amazon's fully managed service that helps run Mongodb database on cloud
     - Usa cases
+        - Migrate on-premise mongodb workload on AWS cloud
+        - If you have new requirement for Nosql datbase, you would rather go with DynamoDB.
 
 - Amazon Keyspaces
-    - What is Apache Casandra
+    - What is Apache Cassandra
+        - Distributed Nosql database
+        - Useful for data warehousing and analytics
     - What is Amazon Keyspaces
+        - Amazon's fully managed service to run Cassandra workload on AWS cloud.
     - Use cases
+        - Netflix usage data
+        - Product catalog & inventory
 
 - Implementing Graph databases using Amazon Neptune
     - What is Graph database
+        - stores data as nodes and relationships between them
     - What is Amazon Neptune
+        - Amazon's graph database implementation
     - Use cases
+        - Recommendation engine
+        - Social interactions
 
 - Analysing Time-Series data with Amazon Timestream
     - What is Time-Series Data
+        - Stores data as series of points during particular time period
     - What is Amazon Timestream
+        - Amazon's Time-Series database implemenation
     - Use cases 
-
-- 
+        - IOT streams
