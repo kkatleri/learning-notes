@@ -7,6 +7,7 @@
 - [Elastic Compute Cloud(EC2)](#elastic-compute-cloud-ec2)
 - [Elastic Block Store(EBS) & Elastic File System(EFS))](#elastic-block-storeebs--elastic-file-systemefs)
 - [Databases](#databases)
+- [Virtual Private Cloud(VPC) Networking](#virtual-private-cloudvpc-networking)
 
 
 ## Introduction
@@ -496,6 +497,18 @@ Passing Mark - 725/1000
         - Migrate on-premise mongodb workload on AWS cloud
         - If you have new requirement for Nosql datbase, you would rather go with DynamoDB.
 
+- Quantom-Ledger database(QLDB)
+    - What is Ledger database
+        - Used to keep track of transactions
+        - You can not update existing record, updates are also processed as new record, keeping history of all updates
+    - What is QLDB
+        - Amazon's implementation of Ledger database
+        - Fully managed
+    - Use cases
+        - Bank transactions
+        - Claims history
+        - Blockchain
+
 - Amazon Keyspaces
     - What is Apache Cassandra
         - Distributed Nosql database
@@ -522,3 +535,45 @@ Passing Mark - 725/1000
         - Amazon's Time-Series database implemenation
     - Use cases 
         - IOT streams
+
+## Virtual Private Cloud(VPC) Networking
+- VPC Overview
+    - Think of it as your own private datacenter in the cloud.
+    - Helps you launch and manage various network resources such as Internet gateway, Router, Network ACL, Subnets, Security groups etc.
+    - You can choose an IP address range for a VPC and subnets within it.
+    - You can launch priavte and public networks within a VPC using Subnets.
+    - VPC is created in a region and each subnet in that vpc corresponds to an availbility zone in that region.
+    - There is always a default VPC in place for each region
+    - Whenever we launch an EC2 instance, its part of default vpc
+    - You can also create your own custom VPC, takes time to setup.
+
+- VPC components
+    - Subnet 
+        - VPC can have 1 to many subnets 
+        - Each subnet resides in an availbility zone 
+        - One availability zone can only one subnet associated with it 
+    - Internet Gateway
+        - Enables VPC connect to Internet
+        - Only 1 IG can be associate to a VPC
+    - Route table
+        - Route tables define route to communiate outside subnet
+        - Each VPC has an main/default route table, you can add more route tables 
+        - e.g - route to internet gateway 
+    - NAT Gateway
+        - Enables resources in private subnet to access to Internet
+        - Managed by AWS (Pathching, IP allocation etc)
+    
+- VPC Features
+    - How to make a subnet public?
+        - Enable public IPv4 address allocation
+        - Create a new route table with route to Internet Gateway
+        - Associate a subnet with this new route table
+    - How to make a subnet private?
+        - Disable public IPv4 address allocation
+        - Assocate a subnet to route table with no route to IG
+    - How can resources in private subnet access to Internet
+        - Use NAT Gateway
+        - Create a NAT Gateway in public subnet in VPC
+        - Add a route to NAT Gateway in route table associated with private subnet
+        - resource in private subnet -> NAT Gateway -> IG -> Internet
+    
