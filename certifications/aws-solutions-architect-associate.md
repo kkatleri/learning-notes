@@ -551,17 +551,48 @@ Passing Mark - 725/1000
     - Subnet 
         - VPC can have 1 to many subnets 
         - Each subnet resides in an availbility zone 
-        - One availability zone can only one subnet associated with it 
+        - One availability zone can only have one subnet associated with it 
     - Internet Gateway
         - Enables VPC connect to Internet
         - Only 1 IG can be associate to a VPC
     - Route table
         - Route tables define route to communiate outside subnet
-        - Each VPC has an main/default route table, you can add more route tables 
-        - e.g - route to internet gateway 
+        - Each VPC has a main/default route table, you can add more route tables 
+        - Default route table has a route to internet
+        - when new rout table is added, it contains no routes.
     - NAT Gateway
         - Enables resources in private subnet to access to Internet
-        - Managed by AWS (Pathching, IP allocation etc)
+        - Managed by AWS (Patching, IP allocation etc)
+    - Security Group
+        - Acts like firewall for your VPC resources
+        - Allows you to define ports for in & out going traffic
+        - By default all ports are blocked
+        - Security groups are stateful meaning - once the port is opened for incoming traffic, outgoing traffic is automatically opened.
+    - Network ACLs
+        - NACLs allows you to control subnet traffic, first defence in line
+        - NACL is optional security layer in addition to Security groups which are at resource level
+        - NACL is stateless meaning incoming and outgoing traffic ports need to be configured seperately 
+        - Each VPC had default NACL which allows all incoming and outgoing traffic by default.
+        - You can create custom NACL which blocks all traffic by default until you add rules.
+        - Each subnet has to be associated with one NACL, if not associated explicitely its associated to default NACL.
+        - NACL allows you to block IP addresses unlike security groups.
+    - VPC Endpoints
+        - Enables your VPC to communicate with other AWS services privately without the traffic leaving AWS Network
+        - Resources in your VPC do not requird private IP addresses to communincate with other AWS services
+        - Endpoints are virtual devices, horizontally scaled
+        - 2 Types of endpoints
+            - Interface endpoint 
+                - Elastic network interface with private IP address
+                - Supports large number of AWS Services
+            - Gateway endpoint
+                - Virtual newtwork interface
+                - Supports only S3 and DynamoDB 
+    - VPC Peering
+        - Enables you to connect multiple VPCs and commiunicate using private IP address
+        - As if all the resources are in the same private network
+        - Peering works in star configuration. Transitive peering does not work
+        - VPCs within the same account and across the accounts/ regions can be peered.   
+
     
 - VPC Features
     - How to make a subnet public?
@@ -576,4 +607,9 @@ Passing Mark - 725/1000
         - Create a NAT Gateway in public subnet in VPC
         - Add a route to NAT Gateway in route table associated with private subnet
         - resource in private subnet -> NAT Gateway -> IG -> Internet
+    - How can resources in private subnet connect to AWS Services privately
+        - Use VPC Endpoints
+        - Create a VPC endpoint -> Associate it with a route table of the private subnet(generally default RT)
+        - Now traffic in private subnet will flow through VPC endpoint instead of NAT gateway in the public subnet 
+    
     
