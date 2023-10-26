@@ -8,6 +8,7 @@
 - [Elastic Block Store(EBS) & Elastic File System(EFS))](#elastic-block-storeebs--elastic-file-systemefs)
 - [Databases](#databases)
 - [Virtual Private Cloud(VPC) Networking](#virtual-private-cloudvpc-networking)
+- [Route 53](#route-53)
 
 
 ## Introduction
@@ -592,9 +593,50 @@ Passing Mark - 725/1000
         - As if all the resources are in the same private network
         - Peering works in star configuration. Transitive peering does not work
         - VPCs within the same account and across the accounts/ regions can be peered.   
+        - Communcation is still happening on public internet
 
-    
-- VPC Features
+    - Nework privacy using Private Link
+        - VPC peering can be very painful when there are hundreds and thousands of VPCs
+        - Private link allows Service VPC to expose its resources to hundreds and thousands of client VPCs
+        - For Private link, you need Network load balancer on the service VPC end and ENI (Elastic NW Interface) on client VPCs end.
+        - Communication is still happening on public internet.
+
+    - Securing Network using VPN Cloudhub
+        - Aggregates mulitple client sides using their own VPNs and connets them to communicate each other
+        - Works on hub-and-spoke model.
+        - Communication is still happening on public internet, encrypted though
+        - Low cost and easy to manage
+
+    - Direct Connect
+        - Establishes dedicated connection bewtween premise datacenter and  the AWS 
+        - Reduces network cost, higher bandwidth and throughput
+        - Communication is on private network so secured and reliable
+        - Types of Direct connection
+            - Dedicated connection
+                - Physical ethernet connection 
+                - Private to the customer
+                - Provisioned by AWS 
+                - Can be requested on AWS Management console
+            - Hosted connection
+                - Physicahub-and-spokel ethernet connection
+                - Provisioned by AWS Direct connect partner such as Horizon, AT&T
+        - Network diagram for Direct Connect - 
+        ![Alt text](images/DirectConnect.png)  
+        - Run VPN for extra security      
+
+    - Transit Gateway
+        - Simplifies network topology 
+        - Works in  model
+        - Connects VPCs through central hub, acts as a cloud router
+        - you can control which vpcs can communicate to each other with configuration
+        - Works with direct connect as well as VPN connection.
+        - Supports IP multicast (distributing content to mulitple IP addresess)
+
+    - AWS Wavelength
+        - Provides mobile edge computing 
+        - Computing and storage devices are installed at the 5G network
+ 
+- VPC Scenarios
     - How to make a subnet public?
         - Enable public IPv4 address allocation
         - Create a new route table with route to Internet Gateway
@@ -611,5 +653,44 @@ Passing Mark - 725/1000
         - Use VPC Endpoints
         - Create a VPC endpoint -> Associate it with a route table of the private subnet(generally default RT)
         - Now traffic in private subnet will flow through VPC endpoint instead of NAT gateway in the public subnet 
-    
+
+## Route 53
+    - Amazon's DNS service
+    - DNS helps computers resolve human readable names to IP addresses.
+    - Top level domains such as .com, .gov.in etc
+    - Domain Registrars
+        - Provides domain name under one or more top level domain
+        - registers it with InerINC, a service of ICANN
+        - Makes sure domains are unique
+        - Populare Domain Registrars
+            - domain.com
+            - GoDaddy
+            - Hoover
+            - AWS
+            - Namecheap
+     - Common DNS Record types
+        - SOA(Start Of Authority) record
+            - contains A records, CNAME, TTL etc 
+        - NS(NameServer) records
+            - Directs to SOA server
+        - A record
+    - Flow
+        - User -> .com server -> NS record -> SOA server - A record
+    - What is CNAME
+        - Canonical name
+        - maps subdomains to a different name
+        - e.g blog.example.com -> www.example.com
+        - can not map root domain(zone apex)
+    - What is Alias (A Record)
+        - Same as CNAME
+        - Except, can map root domain to another AWS service
+        - Mostly supported by cloud providers (AWS)
+    - Types of routing
+        - Simple routing 
+        - Weighted routing
+        - Failover routing
+        - Geolocation routing
+        - Geoproximity routing
+        - Latency based routing
+        - Multivalue routing   
     
