@@ -9,6 +9,7 @@
 - [Databases](#databases)
 - [Virtual Private Cloud(VPC) Networking](#virtual-private-cloudvpc-networking)
 - [Route 53](#route-53)
+- [Elastic Load Balancer](#elastic-load-balancer)
 
 
 ## Introduction
@@ -655,42 +656,82 @@ Passing Mark - 725/1000
         - Now traffic in private subnet will flow through VPC endpoint instead of NAT gateway in the public subnet 
 
 ## Route 53
-    - Amazon's DNS service
-    - DNS helps computers resolve human readable names to IP addresses.
-    - Top level domains such as .com, .gov.in etc
-    - Domain Registrars
-        - Provides domain name under one or more top level domain
-        - registers it with InerINC, a service of ICANN
-        - Makes sure domains are unique
-        - Populare Domain Registrars
-            - domain.com
-            - GoDaddy
-            - Hoover
-            - AWS
-            - Namecheap
-     - Common DNS Record types
-        - SOA(Start Of Authority) record
-            - contains A records, CNAME, TTL etc 
-        - NS(NameServer) records
-            - Directs to SOA server
-        - A record
-    - Flow
-        - User -> .com server -> NS record -> SOA server - A record
-    - What is CNAME
-        - Canonical name
-        - maps subdomains to a different name
-        - e.g blog.example.com -> www.example.com
-        - can not map root domain(zone apex)
-    - What is Alias (A Record)
-        - Same as CNAME
-        - Except, can map root domain to another AWS service
-        - Mostly supported by cloud providers (AWS)
-    - Types of routing
-        - Simple routing 
-        - Weighted routing
-        - Failover routing
-        - Geolocation routing
-        - Geoproximity routing
-        - Latency based routing
-        - Multivalue routing   
+- Amazon's DNS service
+- DNS helps computers resolve human readable names to IP addresses.
+- Top level domains such as .com, .gov.in etc
+- Domain Registrars
+    - Provides domain name under one or more top level domain
+    - registers it with InerINC, a service of ICANN
+    - Makes sure domains are unique
+    - Populare Domain Registrars
+        - domain.com
+        - GoDaddy
+        - Hoover
+        - AWS
+        - Namecheap
+- Common DNS Record types
+    - SOA(Start Of Authority) record
+        - contains A records, CNAME, TTL etc 
+    - NS(NameServer) records
+        - Directs to SOA server
+    - A record
+- Flow
+    - User -> .com server -> NS record -> SOA server - A record
+- What is CNAME
+    - Canonical name
+    - maps subdomains to a different name
+    - e.g blog.example.com -> www.example.com
+    - can not map root domain(zone apex)
+- What is Alias (A Record)
+    - Same as CNAME
+    - Except, can map root domain to another AWS service
+    - Mostly supported by cloud providers (AWS)
+- Types of routing
+    - Simple routing 
+    - Weighted routing
+    - Failover routing
+    - Geolocation routing
+    - Geoproximity routing
+    - Latency based routing
+    - Multivalue routing   
     
+## Elastic Load Balancer
+- Distributes request amongst backend servers (EC2, Lambda etc.)
+- AWS provides 3 Types load balancers
+    - Application load balancer
+        - Operates at OSI layer 7
+        - Provides intelligent routing due to ability to access request, headers etc
+            - Routing based on IP address
+            - Rounting based on path pattern
+            - Routing based on request/ headers attribute
+        - Works with only HTTP and HTTPS protocol (Limitation)
+        - For HTTPS, should install at least one SSL Certificate
+        - 3 important components while configuring Application LB
+            - Listener port (80/ 443)
+            - Routing rule
+            - Target groups
+        - Performs health check of backend servers that are registered
+        - Unhealthy servers are not sent any requests until comes back up as healthy
+    - Network load balancer
+        - Operates at OSI Layer 3
+        - Can handle millions of request per second without compramising on latency
+        - Works with TCP, UDP protocol
+        - Does not provide intelligent routing due to not having access to request data
+    - Classic load balancer
+        - Works with Http/s and TCP protocols
+        - Previous generation LB from AWS
+        - Good for Dev workloads, not recommended to use in prod
+        - Provides routing based on path, request headers etc.
+        - Not as fast as Application LB
+        - Works directly with EC2 instances, as opposed to ALB that works with Target group
+- Sticky sessions with ALB
+    - Application & Classic load balancers provide ability to create sticky sessions
+    - Sticky session enables request coming from particular user to be forwareded 
+        - to same target group in case App LB
+        - to same EC2 in case of classic LB
+    - This is helpful if the user session data is stored at server/ target group level
+    - This could create an issue when target server/ group is completely down where user is being forwarded continuously due to sticky session
+    - Provision to enable/disable this option
+- Deregistration delay
+    - When enabled, LB will continue to forwared in-flight request to given server/ target group for configured amount of time even if server/ target group is unhealthy 
+    - Provision to enable/disable this option
