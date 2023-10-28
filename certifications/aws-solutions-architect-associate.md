@@ -735,3 +735,35 @@ Passing Mark - 725/1000
 - Deregistration delay
     - When enabled, LB will continue to forwared in-flight request to given server/ target group for configured amount of time even if server/ target group is unhealthy 
     - Provision to enable/disable this option
+
+## Cloudwatch Alarm
+    - AWS's monitoring and observability tool
+    - Helps monitor various metrics of AWS services such as CPU utlization, network throughput etc
+    - 2 types of metrics
+        - Standard
+            - comes default configured with AWS service
+            - If its AWS managed services, comes with more standard metrics for more insights 
+            - e.g CPU utilization, network throughput 
+        - Custom
+            - User needs to install cloudwatch agent explicitly for the custom metrics
+            - e.g Memory utilization, Disk storage throughput
+            - Custom metric provides more control to AWS hence needs user consent
+    - Config flow 
+        - Select metric -> configure threshold -> configure action when threshold breached 
+        - e.g if CPU utilization reach >90%, send an email via SNS
+    - Cloudwatch logs
+        - Structure
+            - Log events (actual logs)
+            - Log streams (Collection of log events from a single source)
+            - Log groups (Collection of log events from similar sources)
+        - Filter pattern
+            - filter pattern can be configured on logs and trigger a cloud watch alarm
+        - Logs insights
+            - Allows SQL type querying on the logs
+    - Amazon managed Graffana
+        - Visualization tool
+        - Querying, correlating and visualizing operational metrics, logs and traces from different sources
+    - Amazon managed Prometheus
+        - Monitoring tool, monitors container metrics at scale
+
+
