@@ -737,33 +737,104 @@ Passing Mark - 725/1000
     - Provision to enable/disable this option
 
 ## Cloudwatch Alarm
-    - AWS's monitoring and observability tool
-    - Helps monitor various metrics of AWS services such as CPU utlization, network throughput etc
-    - 2 types of metrics
-        - Standard
-            - comes default configured with AWS service
-            - If its AWS managed services, comes with more standard metrics for more insights 
-            - e.g CPU utilization, network throughput 
-        - Custom
-            - User needs to install cloudwatch agent explicitly for the custom metrics
-            - e.g Memory utilization, Disk storage throughput
-            - Custom metric provides more control to AWS hence needs user consent
-    - Config flow 
-        - Select metric -> configure threshold -> configure action when threshold breached 
-        - e.g if CPU utilization reach >90%, send an email via SNS
-    - Cloudwatch logs
-        - Structure
-            - Log events (actual logs)
-            - Log streams (Collection of log events from a single source)
-            - Log groups (Collection of log events from similar sources)
-        - Filter pattern
-            - filter pattern can be configured on logs and trigger a cloud watch alarm
-        - Logs insights
-            - Allows SQL type querying on the logs
-    - Amazon managed Graffana
-        - Visualization tool
-        - Querying, correlating and visualizing operational metrics, logs and traces from different sources
-    - Amazon managed Prometheus
-        - Monitoring tool, monitors container metrics at scale
+- AWS's monitoring and observability tool
+- Helps monitor various metrics of AWS services such as CPU utlization, network throughput etc
+- 2 types of metrics
+    - Standard
+        - comes default configured with AWS service
+        - If its AWS managed services, comes with more standard metrics for more insights 
+        - e.g CPU utilization, network throughput 
+    - Custom
+        - User needs to install cloudwatch agent explicitly for the custom metrics
+        - e.g Memory utilization, Disk storage throughput
+        - Custom metric provides more control to AWS hence needs user consent
+- Config flow 
+    - Select metric -> configure threshold -> configure action when threshold breached 
+    - e.g if CPU utilization reach >90%, send an email via SNS
+- Cloudwatch logs
+    - Structure
+        - Log events (actual logs)
+        - Log streams (Collection of log events from a single source)
+        - Log groups (Collection of log events from similar sources)
+    - Filter pattern
+        - filter pattern can be configured on logs and trigger a cloud watch alarm
+    - Logs insights
+        - Allows SQL type querying on the logs
+- Amazon managed Graffana
+    - Visualization tool
+    - Querying, correlating and visualizing operational metrics, logs and traces from different sources
+- Amazon managed Prometheus
+    - Monitoring tool, monitors container metrics at scale
 
+## High Availability and Scaling
+- Horizonal Vs Vertical scaling
+    - Vertical scaling
+        - Increase computational resources of a machine e.g increase CPU, memory etc
+        - It has limitation, after one point you can not add more power to machine
+        - Single point of failure
+    - Horizonal scaling
+        - Add more machines in the existing architecture
+        - Sky ($$$) is the limit
+        - High availibility
+    - Three W's of scaling
+        - What do we scale
+        - Where do we scale
+        - When do we scale
+- Launch Template Vs Launch Configuration (What part)
+    - Launch Template
+        - Provides a way to template EC2 configuration
+        - Can spawn one or many instances using Launch template
+        - Provides versioning
+        - AWS recommended
+        - Only Networking details are not provided while creating Launch template. Doing so, can not be used for auto-scaling.
+    - Launch Configuration
+        - Old way to template EC2 configuration
+        - can only be used with auto-scaling. Can not be used to spawn a single instance
+        - Does not provide versioning
+- Auto scaling groups (Where part)
+    - Networking
+        - Networking details are provided what creating auto-scaling groups.. along with Launch template
+        - Provides ability to select different subnets to provide HA
+    - ELB
+        - Put a load balancer in front of Auto-scaling group
+        - Can be configured to provide health check
+    - Limits
+        - Important to set limits which creating ASG
+        - Min - Minium EC2 to be running alwasy
+        - Max - Maximum EC2 to be scaled
+        - Desired - How many EC2 are desired at this point in time. ASG is always in pursuit of this value
+    - Notifications
+        - can be configured using SNS
+    - Balancing
+        - Make sure to select at least 2 Availibility Zones for HA 
+- Auto scaling policies (When part)
+    - Provides an ability to scale in or out based on cloudwatch metrics
+    - Define various policies for scale in and out
+    - Consider Warm and cold state
+        - Warm state
+            - When scale out metric is triggered and desired capcity kicks in
+            - It would take time for new EC2 to bootup and ready to take requests
+            - ASG allows config to provide warm up time so that health checks are not performed while EC2s are booting up
+        - Cold state
+            - Time taken by EC2 to shut down during scale in             
+-Scaling releationl databases
+    - 4 ways to scale
+        - Vertical scaling
+            - Add more coomputation power
+        - Scaling storage
+            - Add more storage
+            - One way street, can reduce storage later
+        - Read Replicas
+            - Add more read replicas to take load off from main DB server
+            - Main DB server can be used for writing data
+            - Cross-replication can be configured for read-replicas for HA
+        - Aurora serverless
+            - Fully AWS managed database
+            - Provides auto-scaling, read-replicas OOB
+            - Storage added automatically in the order 10 GiB
+- Scaling Non-relational databases
+    - DynamoDB
+        - AWS fully managed Non-releation DB
+        - Requires Partition/Sort keys, RCUs and WCUs
+        - automatically scaled by increasing RCUs and WCUs, no limit on storage
 
