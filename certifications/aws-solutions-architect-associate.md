@@ -10,7 +10,8 @@
 - [Virtual Private Cloud(VPC) Networking](#virtual-private-cloudvpc-networking)
 - [Route 53](#route-53)
 - [Elastic Load Balancer](#elastic-load-balancer)
-
+- [Cloudwatch Alarm](#cloudwatch-alarm)
+- [High Availbility & Scaling](#high-availability-and-scaling)
 
 ## Introduction
 Exam Pattern
