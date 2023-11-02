@@ -839,3 +839,69 @@ Passing Mark - 725/1000
         - Requires Partition/Sort keys, RCUs and WCUs
         - automatically scaled by increasing RCUs and WCUs, no limit on storage
 
+## Decoupling workflow
+- Overview
+    - When one EC2 instance directly communicates with another EC2, it creates directly dependency and tight coupling between them
+    - Arch:: [User] -> [EC2-FrontEnd] -> [EC2-Backend]
+    - If the called Backend EC2 instance is down, the whole system crashes down
+    - How to decouple them
+        - Option 1 
+            - Hide EC2 instances behind ELB
+            - Arch:: - [User] -> ELB -> [[[EC2-FrontEnd]]] -> ELB -> [[[EC2-Backend]]]
+            - Advantage 
+                - High Availbility 
+                - Loose coupling
+            - Disadvantage
+                - EC2 needs to be always online and ready to recieve request
+        - Option 2
+            - Use Message Queue system to setup interaction between EC2 frontend and backend
+            - Arch:: [User] -> ELB -> [[[EC2-FrontEnd]]] -> SQS -> [[[EC2-Backend]]]
+            - SQS (Simple Queue Service) is Amazon managed message queue service.
+            - Advantages
+                - High Availibility
+                - Loose coupling
+                - Target EC2 does not have to always online and ready to recieve request, rather it works on Pull model
+- SQS
+    - Simple Queue Service 
+    - Poll based messaging
+    - Important settings and defaults
+        - Max messaege size - 256KB
+        - Mssage retention window - 
+            - Default 4 days
+            - Max 14 days
+        - Delivery delay 
+            - default - 0 
+            - Max - 15 mins
+        - Encryption 
+            - Default in flight
+            - Not default at rest, need to be configured
+        - Polling types
+            - Short polling (Default)
+                - connects/disconnects multiple times 
+                - burns more CPU cycle
+            - Long polling
+                - Connects and waits for some time for the message
+                - efficient
+        - Queue depth
+            - Can be used for auto-scaling of EC2 instances
+        - Visibility Timeout
+            - Message is locked/hidden after delivered to listener EC2 for given time
+            - If processed successfully, it will be purged
+            - Else will reappear on queue
+            - Important setting
+- Dead Letter Queue
+    - Messages that were failed to process are moved to dead letter queue for further processing or retry
+    - Its just an SQS queue
+    - its configured with primary SQS
+- SQS Types
+    - Standard queue
+        - Nearly ordered delivery of the messages
+        - Guranted delivery of message at least once (can duplicate)
+        - Nearly unlimited message processing 
+        - High performance
+    - FIFO queue
+        - Guranted ordering of the message
+        - Message delivery only once
+        - Max 300 message processing
+        - queue name should end with .fifo
+        - Reduced performance
