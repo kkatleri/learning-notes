@@ -905,3 +905,78 @@ Passing Mark - 725/1000
         - Max 300 message processing
         - queue name should end with .fifo
         - Reduced performance
+- SNS
+    - Simple Notification Service
+    - Works on Push model
+    - consists of 
+        - Topic - which publish recieves a message
+        - Subscriber - one or many subscribes to a topic and are notified of the message
+    - Message size - 256KB max
+    - Used for Fan out architecture
+        - one message is sent across multiple components for processing independently
+    - Various AWS services can be subscribed to a topic
+        - AWS Lambda
+        - Kinesis
+        - SQS (** For fan out)
+        - Cloudwatch (** Best combo for alerts)
+    - Types of SNS 
+        - Standard
+            - supports majority of AWS services as subscriber
+        - FIFO
+            - Only supports SQS as subscriber
+    - Supports encryption in flight and at rest
+    - supports DLQ
+- API Gateway
+    - A front door for your application
+    - Helps create, publish and secure your API endpoints
+    - Provides ease of access to your endpoints without having to provide AWS credentials
+    - Helps with
+        - Authentication
+        - Authorization
+        - API keys
+        - WAF security
+        - Rate limiting
+        - Preventing DDoS attack
+        - Versioning APIs
+        - Staging APIs (prod/non-prod regions)
+- AWS Batch
+    - handle long running workloads
+    - Why not AWS Lambda 
+        - Because max execution time is 15 mins
+        - Supports standards runtime
+    - Components            
+        - Job (Unit of work)
+        - Job Definations (Blueprint)
+        - Compute configuration
+            - Fargate Vs ECS EC2 compute
+- Amazon MQ
+    - Amazon's message queue service to support existing MQ-based application
+    - Good for migrating MQ based apps to AWS cloud
+    - Supports Active MQ and RabbitMQ managed services
+- AWS Step functions
+    - Helps orchestrating various AWS services to develop a business flow
+    - Serverless service
+    - Amazon State Language
+        - for writing state machines
+    - States
+        - Elements within your state machines
+    - State Types
+        - Pass: just pass data to target state
+        - Task: Processing data
+        - Choice: Conditional logic
+        - Wait: Waiting 
+        - Succeed: Success state
+        - Fail : Failed state
+        - Parallel: Parallel task processing
+        - Map: Looping through array
+    - Supports integrations with various AWS services
+        - AWS Lambda
+        - SQS
+        - SNS
+        - Amazon DynamoDB
+        - etc
+- Amazon AppFlow
+    - Helps ingest data from third party SaaS apps into AWS services
+    - e.g Salesforce data into Kinesis/ S3 
+    - Support bidirectional data flow for some SaaS providers
+        - i.e SaaS <-> AWS
